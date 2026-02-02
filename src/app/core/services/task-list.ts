@@ -14,7 +14,8 @@ export class TaskList {
 
   public async getTask() {
     const value = await this.storageList?.get('task');
-    console.log(value);
-    this._$tasks.set(value ?? []);
+    const orderId = value.sort((a: any, b: any) => b.id - a.id);
+    const orderCompleted = orderId.sort((a: any, b: any) => Number(a.completed) - Number(b.completed));
+    this._$tasks.set(orderCompleted ?? []);
   }
 }

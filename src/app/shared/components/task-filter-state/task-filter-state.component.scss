@@ -1,0 +1,17 @@
+ion-segment-button {
+  --indicator-color: #1a65eb;
+}
+
+/* Material Design styles */
+ion-segment-button.md {
+  --color: #000;
+  --color-checked: #1a65eb;
+  --indicator-height: 4px;
+}
+
+/* iOS styles */
+ion-segment-button.ios {
+  --color: #000;
+  --color-checked: #fff;
+  --border-radius: 20px;
+}

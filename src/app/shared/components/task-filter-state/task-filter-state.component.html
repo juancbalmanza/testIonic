@@ -1,0 +1,11 @@
+<ion-segment value="all">
+  <ion-segment-button value="all" (click)="setFilter('all')">
+    <ion-label>Todos</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="pending" (click)="setFilter('pending')">
+    <ion-label>Pendientes</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="completed" (click)="setFilter('completed')">
+    <ion-label>Completos</ion-label>
+  </ion-segment-button>
+</ion-segment>

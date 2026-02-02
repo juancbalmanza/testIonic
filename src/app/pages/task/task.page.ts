@@ -1,21 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle } from '@ionic/angular/standalone';
+import { Component } from '@angular/core';
+import { IonContent } from '@ionic/angular/standalone';
+import { TaskFilterStateComponent } from 'src/app/shared/components/task-filter-state/task-filter-state.component';
 import { TaskListComponent } from 'src/app/shared/components/task-list/task-list.component';
+import { TaskManagementComponent } from 'src/app/shared/components/task-management/task-management.component';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.page.html',
   styleUrls: ['./task.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle , CommonModule, FormsModule, TaskListComponent]
+  imports: [TaskListComponent, TaskManagementComponent, TaskFilterStateComponent, IonContent]
 })
-export class TaskPage implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}
+export class TaskPage { }

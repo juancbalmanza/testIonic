@@ -1,0 +1,15 @@
+.page-content {
+  justify-content: start;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.management {
+  flex-shrink: 0;
+}
+
+.task-scroll {
+  flex: 1;
+  overflow-y: auto;
+}

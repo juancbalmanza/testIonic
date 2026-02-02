@@ -1,4 +1,9 @@
-
-  <button (click)="addTask()">agregar task</button>
-  <button (click)="getData()">get task</button>
-  {{data() | json}}
+<ion-content>
+    @for (task of data; track task.id; let i = $index) {
+    <app-task-card [task]="task"></app-task-card>
+    }
+    <ion-infinite-scroll [disabled]="disabledPaginate" (ionInfinite)="loadMore($event)">
+        <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Cargando más tareas...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

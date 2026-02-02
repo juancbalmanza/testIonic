@@ -1,0 +1,34 @@
+<div>
+  <app-action-button [invalid]="formInvalid()" [deleteButton]="id()" [dirtyForm]="form.dirty" (saveClick)="save()"
+    (cancelClick)="clearTask()" (deleteClick)="deleteTask()"></app-action-button>
+  <ion-list [formGroup]="form">
+    <ion-item>
+      <ion-input formControlName="title" label="Título" placeholder="Ingresa el título de tu tarea"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input formControlName="description" label="Descripción"
+        placeholder="Ingresa la Descripción de tu tarea"></ion-input>
+    </ion-item>
+    @if ($categories().length > 0) {
+    <ion-item>
+      <ion-select formControlName="categoryId" label="Categoría" placeholder="Selecciona la categoría">
+        @for (data of $categories(); track data.id; let i = $index) {
+        <ion-select-option [value]="data.id">
+          {{data.name}}
+        </ion-select-option>
+        }
+      </ion-select>
+      <ion-button slot="end" (click)="setSignalOpen()">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    }
+  </ion-list>
+  @if ($categories().length === 0) {
+  <ion-button (click)="setSignalOpen()" expand="block" size="small">
+    <ion-icon name="add-circle-outline"></ion-icon>
+    Agregar Categoría
+  </ion-button>
+  }
+</div>
+<app-category-management [(open)]="$open"></app-category-management>

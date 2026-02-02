@@ -1,0 +1,38 @@
+.block {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+ion-modal {
+    --height: auto;
+}
+
+
+.buttons {
+    flex-shrink: 0;
+    width: 100%;
+}
+
+.formIn {
+    flex: 1;
+    overflow-y: auto;
+    align-items: center;
+    display: flex;
+    width: 80%;
+}
+
+.widthItem {
+    width: 100%;
+}
+
+.flexButtons {
+    display: flex;
+}
+
+.flexButtons ion-button {
+    flex: 1;
+}
