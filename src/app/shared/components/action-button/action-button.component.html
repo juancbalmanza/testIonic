@@ -1,0 +1,25 @@
+<ion-grid>
+  <ion-row class="ion-justify-content-between">
+    <ion-col size="auto">
+      @if (deleteButton() !== undefined) {
+      <ion-button size="small" color="danger" (click)="delete()">
+        <ion-icon slot="start" name="trash"></ion-icon>
+        Eliminar
+      </ion-button>
+      }
+    </ion-col>
+    <ion-col>
+      <ion-row class="ion-justify-content-end">
+        <ion-button size="small" color="light" [disabled]="deleteButton() !== undefined ? false : !dirtyForm()" (click)="cancel()">
+          {{deleteButton() !== undefined ? 'Cancelar' : 'Limpiar'}}
+        </ion-button>
+        <ion-button size="small" color="primary" (click)="save()" [disabled]="invalid() === 'INVALID'">
+          @if (deleteButton() === undefined) {
+          <ion-icon slot="start" name="save"></ion-icon>
+          }
+          {{deleteButton() !== undefined ? 'Actualizar' : 'Guardar'}}
+        </ion-button>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+</ion-grid>

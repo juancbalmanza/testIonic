@@ -1,0 +1,43 @@
+<ion-modal #modal [isOpen]="open()" [canDismiss]="canDismiss" [backdropDismiss]="false" [initialBreakpoint]="1"
+  [breakpoints]="[1]">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        @if (categorySelected() !== null && categorySelected()?.id !== undefined) {
+        <ion-buttons slot="start">
+          <ion-button (click)="deleteCategory()" color="danger">Eliminar</ion-button>
+        </ion-buttons>
+        }
+        <ion-title>Categoría</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="close()">
+            <ion-icon name="close-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <div class="block">
+      <div class="formIn">
+        <ion-item class="widthItem">
+          <ion-input label="Nombre" labelPlacement="stacked" placeholder="Ingresa el nombre de la categoría"
+            [value]="name()" (input)="onInput($event)">
+          </ion-input>
+        </ion-item>
+      </div>
+      <div class="buttons">
+        <div class="flexButtons">
+          <ion-button size="small" color="light" [disabled]="(categorySelected() !== null && categorySelected()?.id !== undefined) ? false : name() === ''"
+            (click)="cancel()">
+            {{(categorySelected() !== null && categorySelected()?.id !== undefined) ? 'Cancelar' : 'Limpiar'}}
+          </ion-button>
+          <ion-button size="small" color="primary" (click)="save()" [disabled]="name() === ''">
+            @if (categorySelected() === null || categorySelected()?.id === undefined) {
+            <ion-icon slot="start" name="save"></ion-icon>
+            }
+            {{(categorySelected() !== null && categorySelected()?.id !== undefined) ? 'Actualizar' : 'Guardar'}}
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ion-modal>

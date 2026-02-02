@@ -1,0 +1,18 @@
+<ion-card [color]="$task()?.selected ? 'warning' : (task()?.completed ? 'success' : '')">
+  <ion-card-header>
+    <ion-card-title>
+      {{task()?.title}}
+    </ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    {{task()?.description}}
+  </ion-card-content>
+  @if(!task()?.completed){
+  <app-action-button-card 
+  (editClick)="loadEdit()"
+  (didTaskClick)="updateTask()"
+  [disabledRealizado]="$task()?.selected"
+  ></app-action-button-card>
+  }
+</ion-card>

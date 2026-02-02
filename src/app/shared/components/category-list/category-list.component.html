@@ -1,0 +1,19 @@
+<ion-content>
+  <ion-list>
+    <ion-button size="small" slot="end" expand="block" (click)="setEdit($event, {name: ''})">
+      <ion-icon name="add-circle-outline"></ion-icon>
+      Nueva categoría
+    </ion-button>
+    @for (data of $categories(); track data.id; let i = $index) {
+    <ion-menu-toggle>
+      <ion-item (click)="setFilter(data)">
+        <ion-label>{{data.name}}</ion-label>
+        <ion-button size="small" slot="end" (click)="setEdit($event, data)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button> 
+      </ion-item>
+    </ion-menu-toggle>
+    }
+
+  </ion-list>
+</ion-content>

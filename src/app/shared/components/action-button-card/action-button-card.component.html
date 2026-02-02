@@ -1,0 +1,15 @@
+<ion-grid>
+  <ion-row class="ion-justify-content-between">
+    <ion-col>
+      <ion-button size="small" expand="block" fill="outline" (click)="didTask()">
+        Realizado
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button size="small" expand="block" color="primary" (click)="edit()" [disabled]="disabledRealizado()">
+        <ion-icon slot="start" name="create-outline"></ion-icon>
+        Editar
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

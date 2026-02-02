@@ -20,7 +20,6 @@ export class StorageList {
   public async get(key: string) {
     await this.init();
     const value = await this._storage?.get(key);
-    console.log(value);
     return value;
   }
 }

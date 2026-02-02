@@ -18,6 +18,5 @@ export class StorageManagement {
   
     public async set(key: string, value: any) {
       const result = await this._storage?.set(key, value);
-      console.log(result);
     }
 }
