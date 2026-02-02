@@ -7,8 +7,6 @@
 
   <ion-card-content>
     {{task()?.description}}
-    {{task()?.completed}} 
-    {{task()?.completed ? '' : 'success'}} 
   </ion-card-content>
   @if(!task()?.completed){
   <app-action-button-card 

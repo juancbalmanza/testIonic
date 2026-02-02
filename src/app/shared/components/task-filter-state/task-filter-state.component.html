@@ -6,6 +6,17 @@
     <ion-label>Pendientes</ion-label>
   </ion-segment-button>
   <ion-segment-button value="completed" (click)="setFilter('completed')">
-    <ion-label>Completos</ion-label>
+    <ion-label>Realizados</ion-label>
   </ion-segment-button>
 </ion-segment>
+
+@if($categoryFilter()) {
+<ion-card>
+  <ion-card-content>
+    <ion-item>
+      <ion-label>{{$categoryFilter().name}}</ion-label>
+      <ion-icon name="close-circle-outline" slot="end" (click)="setFilterCategory()"></ion-icon>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
+}

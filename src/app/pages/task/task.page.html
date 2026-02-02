@@ -1,4 +1,22 @@
-<div class="page-content">
+<ion-menu contentId="main-content" menuId="main-menu">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>Categorías</ion-title>
+            <ion-buttons slot="end">
+                <ion-menu-toggle>
+                    <ion-button>
+                        <ion-icon name="close-circle-outline"></ion-icon>
+                    </ion-button>
+                </ion-menu-toggle>
+            </ion-buttons>
+        </ion-toolbar>
+    </ion-header>
+    <ion-label class="ion-padding">Para filtrar por categoría, selecciona una, para editar toca el botón</ion-label>
+    <ion-content class="ion-padding">
+        <app-category-list></app-category-list>
+    </ion-content>
+</ion-menu>
+<div class="page-content" id="main-content">
     <div class="management">
         <app-task-management></app-task-management>
         <app-task-filter-state></app-task-filter-state>

@@ -1,8 +1,7 @@
-import { JsonPipe } from '@angular/common';
-import { Component, computed, effect, input, model, OnInit, signal, Signal, viewChild, WritableSignal } from '@angular/core';
-import { IonModal, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonInput, IonContent, IonItem, IonGrid, IonRow, IonCol, IonIcon, IonFooter, ModalController } from '@ionic/angular/standalone';
+import { Component, effect, model, OnInit, signal } from '@angular/core';
+import { IonButton, IonButtons, IonCol, IonContent, IonFooter, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonModal, IonRow, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { createOutline, save } from 'ionicons/icons';
+import { closeCircleOutline, createOutline, save } from 'ionicons/icons';
 import { CategoryList } from 'src/app/core/services/category-list';
 import { CategoryManagement } from 'src/app/core/services/category-management';
 
@@ -11,21 +10,23 @@ import { CategoryManagement } from 'src/app/core/services/category-management';
   templateUrl: './category-management.component.html',
   styleUrls: ['./category-management.component.scss'],
   standalone: true,
-  imports: [JsonPipe, IonModal, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonInput, IonContent, IonItem, IonGrid, IonRow, IonCol, IonIcon, IonFooter]
+  imports: [IonModal, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonInput, IonContent, IonItem, IonGrid, IonRow, IonCol, IonIcon, IonFooter]
 })
 export class CategoryManagementComponent implements OnInit {
   categorySelected = this.categoryManagement.$categorySelected;
   name = model('');
   open = model.required<boolean>();
-  /* task = input<ToDoTask>();
-   $task: WritableSignal<ToDoTask | null> = signal(this.task()!!); */
   canDismiss = false;
   constructor(
     private modalCtrl: ModalController,
     private categoryManagement: CategoryManagement,
     private categoryList: CategoryList
   ) {
-    addIcons({ save, createOutline });
+    addIcons({ save, createOutline, closeCircleOutline });
+    effect(() => {
+      const category = this.categorySelected();
+      if (category) this.name.set(category.name);
+    });
   }
 
   ngOnInit() { }
@@ -36,22 +37,28 @@ export class CategoryManagementComponent implements OnInit {
   }
 
   close() {
+    this.cancel();
     this.canDismiss = true;
     this.open.set(false);
   }
 
   cancel() {
+    const selected = this.categorySelected();
     this.categoryManagement.setCategorySelected(signal(null));
     this.name.set('');
+    if (selected !== null && selected?.['id'] !== undefined) {
+      this.canDismiss = true;
+      this.open.set(false);
+    }
   }
 
   async save() {
-    if (this.categorySelected())
+    const category = this.categorySelected();
+    if (category && category.id !== undefined)
       await this.editCategory();
     else
       await this.addCategory();
 
-    this.cancel();
     await this.categoryList.getCategory();
     this.close();
   }
@@ -63,6 +70,12 @@ export class CategoryManagementComponent implements OnInit {
   async addCategory() {
     const id = this.setId();
     await this.categoryManagement.setCategory([...this.categoryList.$categories(), { name: this.name(), id }]);
+  }
+
+  async deleteCategory() {
+    await this.categoryManagement.deleteCategory(this.categoryList.$categories(), { name: this.name(), id: this.categorySelected()!!.id });
+    await this.categoryList.getCategory();
+    this.close();
   }
 
   setId() {

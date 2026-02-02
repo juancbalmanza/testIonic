@@ -1,15 +1,14 @@
-import { JsonPipe } from '@angular/common';
 import { Component, input, OnInit, output } from '@angular/core';
-import { IonButton, IonIcon, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
+import { IonButton, IonCol, IonGrid, IonIcon, IonRow } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { trash, save } from 'ionicons/icons';
+import { save, trash } from 'ionicons/icons';
 
 @Component({
   selector: 'app-action-button',
   templateUrl: './action-button.component.html',
   styleUrls: ['./action-button.component.scss'],
   standalone: true,
-  imports: [IonButton, IonIcon, IonGrid, IonRow, IonCol, JsonPipe]
+  imports: [IonButton, IonIcon, IonGrid, IonRow, IonCol]
 })
 export class ActionButtonComponent  implements OnInit {
 

@@ -29,13 +29,24 @@ export class TaskListComponent implements OnInit {
     });
 
     effect(() => {
-      const filter = this.taskFilter.$filter();
-      if (filter === 'all')
-        this.$data = this.taskList.$tasks;
-      else 
-        this.$data = signal(this.taskFilter.filterData(this.taskList.$tasks(), (filter === 'completed'), 'completed'));
+      const filter: any = this.taskFilter.$filter();
+      const filterCategory: any = this.taskFilter.$filterCategory();
+      let dataCategory = [];
+      if (filterCategory) {
+        dataCategory = this.taskFilter.filterData(this.taskList.$tasks(), filterCategory?.id, 'categoryId');
+        this.filterState(filter, dataCategory);
+      } else
+        this.filterState(filter, this.taskList.$tasks());
+
       this.loadMore();
     });
+  }
+
+  filterState(filter: string, data: any[]) {
+    if (filter === 'all')
+      this.$data = signal(data);
+    else
+      this.$data = signal(this.taskFilter.filterData(data, (filter === 'completed'), 'completed'));
   }
 
   ngOnInit() {

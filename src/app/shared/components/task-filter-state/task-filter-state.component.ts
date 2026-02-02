@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonLabel, IonSegment, IonSegmentButton } from '@ionic/angular/standalone';
+import { IonLabel, IonSegment, IonSegmentButton, IonCard, IonCardContent, IonButton, IonIcon, IonContent, IonItem } from '@ionic/angular/standalone';
 import { TaskFilter } from 'src/app/core/services/task-filter';
 
 @Component({
@@ -7,15 +7,19 @@ import { TaskFilter } from 'src/app/core/services/task-filter';
   templateUrl: './task-filter-state.component.html',
   styleUrls: ['./task-filter-state.component.scss'],
   standalone: true,
-  imports: [IonLabel, IonSegment, IonSegmentButton]
+  imports: [IonLabel, IonSegment, IonSegmentButton, IonCard, IonCardContent, IonButton, IonIcon, IonContent, IonItem]
 })
 export class TaskFilterStateComponent {
-
+  $categoryFilter = this.taskFilter.$filterCategory;
   constructor(
     private taskFilter: TaskFilter
   ) { }
 
   setFilter(filter: string) {
     this.taskFilter.setFilter(filter);
+  }
+
+  setFilterCategory() {
+    this.taskFilter.setFilterCategory(null);
   }
 }

@@ -3,14 +3,16 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
-        @if (categorySelected() !== null) {
+        @if (categorySelected() !== null && categorySelected()?.id !== undefined) {
         <ion-buttons slot="start">
-          <ion-button (click)="close()" color="danger">Eliminar</ion-button>
+          <ion-button (click)="deleteCategory()" color="danger">Eliminar</ion-button>
         </ion-buttons>
         }
         <ion-title>Categoría</ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="close()">x</ion-button>
+          <ion-button (click)="close()">
+            <ion-icon name="close-circle-outline"></ion-icon>
+          </ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -24,15 +26,15 @@
       </div>
       <div class="buttons">
         <div class="flexButtons">
-          <ion-button size="small" color="light" [disabled]="categorySelected() !== null ? false : name() === ''"
+          <ion-button size="small" color="light" [disabled]="(categorySelected() !== null && categorySelected()?.id !== undefined) ? false : name() === ''"
             (click)="cancel()">
-            {{categorySelected() !== null ? 'Cancelar' : 'Limpiar'}}
+            {{(categorySelected() !== null && categorySelected()?.id !== undefined) ? 'Cancelar' : 'Limpiar'}}
           </ion-button>
           <ion-button size="small" color="primary" (click)="save()" [disabled]="name() === ''">
-            @if (categorySelected() === null) {
+            @if (categorySelected() === null || categorySelected()?.id === undefined) {
             <ion-icon slot="start" name="save"></ion-icon>
             }
-            {{categorySelected() !== null ? 'Actualizar' : 'Guardar'}}
+            {{(categorySelected() !== null && categorySelected()?.id !== undefined) ? 'Actualizar' : 'Guardar'}}
           </ion-button>
         </div>
       </div>
