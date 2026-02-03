@@ -1,7 +1,8 @@
 {
   "name": "testIonic",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular-standalone"
 }

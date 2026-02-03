@@ -15,6 +15,7 @@ export class ActionButtonComponent  implements OnInit {
   invalid = input<string>();
   dirtyForm = input<boolean>();
   deleteButton = input<number | undefined>();
+  showDeleteButton = input<boolean | undefined>();
   saveClick = output<void>();
   cancelClick = output<void>();
   deleteClick = output<void>();

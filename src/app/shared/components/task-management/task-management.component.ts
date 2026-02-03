@@ -4,7 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonButton, IonButtons, IonContent, IonFab, IonFabButton, IonFabList, IonHeader, IonIcon, IonInput, IonItem, IonList, IonMenu, IonMenuButton, IonMenuToggle, IonSelect, IonSelectOption, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { add, addCircleOutline, chevronUpCircle, colorPalette, document, globe } from 'ionicons/icons';
+import { add, addCircleOutline, chevronUpCircle, colorPalette, document, globe, pricetagsOutline } from 'ionicons/icons';
 import { Category } from 'src/app/core/models/category.model';
 import { CategoryList } from 'src/app/core/services/category-list';
 import { CategoryManagement } from 'src/app/core/services/category-management';
@@ -12,6 +12,7 @@ import { TaskList } from 'src/app/core/services/task-list';
 import { TaskManagement } from 'src/app/core/services/task-management';
 import { ActionButtonComponent } from '../action-button/action-button.component';
 import { CategoryManagementComponent } from '../category-management/category-management.component';
+import { FirebaseRemoteConfig } from 'src/app/core/services/firebase-remote-config';
 
 @Component({
   selector: 'app-task-management',
@@ -44,14 +45,18 @@ export class TaskManagementComponent implements OnInit {
   id: WritableSignal<number | undefined> = signal(undefined);
   $open: WritableSignal<boolean> = signal(false);
 
+  showDeleteButton = true;
+  showFabButton = true;
+
   constructor(
     private taskList: TaskList,
     private categoryList: CategoryList,
     private categoryManagement: CategoryManagement,
     private taskManager: TaskManagement,
+    private remoteConfig: FirebaseRemoteConfig,
     private fb: FormBuilder
   ) {
-    addIcons({ addCircleOutline, chevronUpCircle, document, colorPalette, globe, add });
+    addIcons({addCircleOutline,pricetagsOutline,chevronUpCircle,document,colorPalette,globe,add});
     effect(() => {
       const selected = this.taskManager.$taskSelected();
       this.form.reset();
@@ -70,6 +75,13 @@ export class TaskManagementComponent implements OnInit {
 
   ngOnInit() {
     this.getCategories();
+    this.initData();
+  }
+
+  async initData() {
+    await this.remoteConfig.init();
+    this.showDeleteButton = this.remoteConfig.getBoolean('can_delete_task');
+    this.showFabButton = this.remoteConfig.getBoolean('show_fab_button_categories');
   }
 
   async getCategories() {

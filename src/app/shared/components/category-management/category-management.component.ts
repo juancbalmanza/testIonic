@@ -1,9 +1,10 @@
 import { Component, effect, model, OnInit, signal } from '@angular/core';
-import { IonButton, IonButtons, IonCol, IonContent, IonFooter, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonModal, IonRow, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
+import { IonButton, IonButtons, IonCol, IonContent, IonFooter, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonModal, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { closeCircleOutline, createOutline, save } from 'ionicons/icons';
 import { CategoryList } from 'src/app/core/services/category-list';
 import { CategoryManagement } from 'src/app/core/services/category-management';
+import { FirebaseRemoteConfig } from 'src/app/core/services/firebase-remote-config';
 
 @Component({
   selector: 'app-category-management',
@@ -16,10 +17,11 @@ export class CategoryManagementComponent implements OnInit {
   categorySelected = this.categoryManagement.$categorySelected;
   name = model('');
   open = model.required<boolean>();
-  canDismiss = false;
+  canDismiss = false; 
+  showDeleteButton = true;
   constructor(
-    private modalCtrl: ModalController,
     private categoryManagement: CategoryManagement,
+    private remoteConfig: FirebaseRemoteConfig,
     private categoryList: CategoryList
   ) {
     addIcons({ save, createOutline, closeCircleOutline });
@@ -29,7 +31,14 @@ export class CategoryManagementComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.initData();
+  }
+
+  async initData() {
+    await this.remoteConfig.init();
+    this.showDeleteButton = this.remoteConfig.getBoolean('can_delete_category');
+  }
 
   onInput(event: Event) {
     const input = event.target as HTMLInputElement | null;

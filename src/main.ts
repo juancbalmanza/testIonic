@@ -6,6 +6,9 @@ import { Drivers } from '@ionic/storage';
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { importProvidersFrom } from '@angular/core';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getRemoteConfig, provideRemoteConfig } from '@angular/fire/remote-config';
+import { environment } from './environments/environment';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -17,6 +20,8 @@ bootstrapApplication(AppComponent, {
         name: 'taskDB',
         driverOrder: [Drivers.IndexedDB]
       })
-    )
+    ), 
+    provideFirebaseApp(() => initializeApp(environment.firebase)), 
+    provideRemoteConfig(() => getRemoteConfig())
   ]
 });
