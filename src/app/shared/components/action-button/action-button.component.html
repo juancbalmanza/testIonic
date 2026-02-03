@@ -1,7 +1,7 @@
 <ion-grid>
   <ion-row class="ion-justify-content-between">
     <ion-col size="auto">
-      @if (deleteButton() !== undefined) {
+      @if (deleteButton() !== undefined && showDeleteButton()) {
       <ion-button size="small" color="danger" (click)="delete()">
         <ion-icon slot="start" name="trash"></ion-icon>
         Eliminar

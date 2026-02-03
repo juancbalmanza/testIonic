@@ -1,6 +1,6 @@
 <div>
   <app-action-button [invalid]="formInvalid()" [deleteButton]="id()" [dirtyForm]="form.dirty" (saveClick)="save()"
-    (cancelClick)="clearTask()" (deleteClick)="deleteTask()"></app-action-button>
+    (cancelClick)="clearTask()" [showDeleteButton]="showDeleteButton" (deleteClick)="deleteTask()"></app-action-button>
   <ion-list [formGroup]="form">
     <ion-item>
       <ion-input formControlName="title" label="Título" placeholder="Ingresa el título de tu tarea"></ion-input>
@@ -32,10 +32,12 @@
   }
 </div>
 <app-category-management [(open)]="$open"></app-category-management>
+@if (showFabButton) {
 <ion-fab slot="fixed" vertical="bottom" horizontal="end">
   <ion-menu-toggle>
     <ion-fab-button>
-      <ion-icon name="chevron-up-circle"></ion-icon>
+      <ion-icon name="pricetags-outline"></ion-icon>
     </ion-fab-button>
   </ion-menu-toggle>
 </ion-fab>
+}

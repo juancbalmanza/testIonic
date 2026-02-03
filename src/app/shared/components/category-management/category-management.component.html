@@ -3,7 +3,7 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
-        @if (categorySelected() !== null && categorySelected()?.id !== undefined) {
+        @if (categorySelected() !== null && categorySelected()?.id !== undefined && showDeleteButton) {
         <ion-buttons slot="start">
           <ion-button (click)="deleteCategory()" color="danger">Eliminar</ion-button>
         </ion-buttons>
